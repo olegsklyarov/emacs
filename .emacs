@@ -5,10 +5,12 @@
 
 ; http://vserver1.cscs.lsa.umich.edu/~rlr/Misc/emacs_tabs.htm
 (global-set-key (kbd "TAB") 'self-insert-command);
+(global-set-key (kbd "C-x C-g") 'magit-status)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-whitespace-mode 0)
 
-(set-face-attribute 'default nil :height 110)
+(set-face-attribute 'default nil :height 120)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -16,8 +18,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(calendar-week-start-day 1)
- '(custom-enabled-themes (quote (misterioso)))
- '(tab-width 2))
+ '(custom-enabled-themes (quote (tango-dark)))
+ '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
