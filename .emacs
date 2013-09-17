@@ -5,7 +5,9 @@
 
 ; http://vserver1.cscs.lsa.umich.edu/~rlr/Misc/emacs_tabs.htm
 (global-set-key (kbd "TAB") 'self-insert-command);
-(global-set-key (kbd "C-x C-g") 'magit-status)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x w") 'whitespace-mode)
+
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-whitespace-mode 0)
