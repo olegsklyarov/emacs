@@ -8,13 +8,11 @@
 ;; check if the packages is installed; if not, install it.
 (mapc (lambda (package) (or (package-installed-p package)
 	(if (y-or-n-p (format "Package %s is missing. Install it? " package))
-		(package-install package)))) '(php-mode geben smart-tabs-mode))
+		(package-install package)))) '(php-mode geben magit))
 
-
-(smart-tabs-insinuate 'javascript)
 
 ; http://vserver1.cscs.lsa.umich.edu/~rlr/Misc/emacs_tabs.htm
-; (global-set-key (kbd "TAB") 'self-insert-command)
+(global-set-key (kbd "TAB") 'self-insert-command)
 (global-set-key (kbd "<backspace>") 'backward-delete-char)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x w") 'whitespace-mode)
@@ -23,14 +21,13 @@
 (add-hook 'php-mode-hook (lambda () (setq indent-tabs-mode t)))
 ;(add-hook 'python-mode-hook (lambda () (setq indent-tabs-mode t)))
 (add-hook 'html-mode-hook (lambda() (setq sgml-basic-offset 4) (setq indent-tabs-mode t)))
+(add-hook 'nxml-mode-hook (lambda() (setq indent-tabs-mode t)))
 
 (defun web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 4)
   (setq indent-tabs-mode t)
 )
-
-(add-hook 'web-mode-hook  'web-mode-hook)
 
 
 
@@ -42,6 +39,23 @@
 (set-face-attribute 'default nil :height 120)
 
 
+
+
+(defun sudo-edit-current-file (&optional arg)
+  "Edit currently visited file as root.
+
+With a prefix ARG prompt for a file to visit.
+Will also prompt for a file to visit if current
+buffer is not visiting a file."
+  (interactive "P")
+  (if (or arg (not buffer-file-name))
+      (find-file (concat "/sudo:root@localhost:"
+                         (ido-read-file-name "Find file(as root): ")))
+    (let ((position (point)))
+        (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))
+        (goto-char position))))
+
+(global-set-key (kbd "\C-x!")       'sudo-edit-current-file)
 
 
 (defun swap-buffers-in-windows ()
@@ -85,6 +99,7 @@
 
 (global-set-key (kbd "\C-c s")      'swap-buffers-in-windows)
 (global-set-key (kbd "\C-c f")      'toggle-window-split)
+(global-set-key (kbd "\C-c g")      'goto-line)
 
 
 (custom-set-variables
